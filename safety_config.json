@@ -1,0 +1,24 @@
+{
+  "camera": {
+    "camera_id": 0,
+    "width": 640,
+    "height": 480
+  },
+
+  "model": {
+    "confidence_threshold": 0.5
+  },
+
+  "tracking": {
+    "warning_distance": 100,
+    "prediction_time": 0.2
+  },
+
+  "safety": {
+    "clear_timer_sec": 2.5
+  },
+
+  "gpio": {
+    "pin": 18
+  }
+}
