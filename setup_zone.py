@@ -15,6 +15,8 @@ def mouse_callback(event, x, y, flags, param):
         print(f"  Point added: ({x}, {y})  — total: {len(zone_points)} points")
 
 cap = cv2.VideoCapture(0)
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 if not cap.isOpened():
     print("ERROR: Cannot open webcam.")
     print("If on WSL, webcam access may need setup — see note below.")
@@ -64,7 +66,11 @@ while True:
             print("  Need at least 3 points. Keep clicking on the feed.")
         else:
             with open("zone_config.json", "w") as f:
-                json.dump({"zone": zone_points}, f, indent=2)
+                json.dump({
+              "zone": zone_points,
+              "width": 640,
+              "height": 480
+                           }, f, indent=2)
             print(f"\n  Zone saved to zone_config.json")
             print(f"  Points saved: {zone_points}")
             print(f"\n  Next step: run python3 main_safety_system.py")
@@ -77,6 +83,10 @@ while True:
     elif key == ord('q'):
         print("  Quit without saving.")
         break
+    elif key == ord('u'):
+     if len(zone_points) > 0:
+        removed = zone_points.pop()
+        print(f"Removed point {removed}")
 
 cap.release()
 cv2.destroyAllWindows()
